@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 public class Main {
 
+	// Please change root folder location to point to your folder with test and train files 
 	private static final String ROOT_FOLDER_PATH = "C:\\Users\\Eugene\\Documents\\PMP\\Machine Learning\\Lab3";
     private static final String TEST_FILE_PATH = ROOT_FOLDER_PATH + "\\test";
     private static final String TRAINING_FILE_PATH = ROOT_FOLDER_PATH + "\\train";
@@ -19,11 +20,11 @@ public class Main {
     private static boolean useLog = true;
     
 	public static void main(String[] args) throws Exception {
-		ParseFile(TRAINING_FILE_PATH);
+		ParseFileAndTrainModel(TRAINING_FILE_PATH);
 		RunPrediction(TEST_FILE_PATH);
 	}
 	
-	private static void ParseFile(String filePath) throws Exception {
+	private static void ParseFileAndTrainModel(String filePath) throws Exception {
 		Dictionary = new HashMap<String, WordInfo>();
 		
         BufferedReader br = new BufferedReader(new FileReader(filePath));
