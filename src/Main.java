@@ -37,7 +37,6 @@ public class Main {
         
         while ((line = br.readLine()) != null) {
         	String[] tokens = line.split(" ");
-        	HashMap<String, Integer> words = new HashMap<String, Integer>();
         	String id = tokens[0];
         	if (!tokens[1].equalsIgnoreCase("ham") && !tokens[1].equalsIgnoreCase("spam")) {
         		throw new Exception();
@@ -48,7 +47,6 @@ public class Main {
         		String word = tokens[i].toLowerCase();  
         		Integer n = Integer.parseInt(tokens[i+1]);
         		
-        		words.put(word, n);
         		if (!Dictionary.containsKey(word)) {
         			Dictionary.put(word, new WordInfo());
         		}
@@ -62,13 +60,12 @@ public class Main {
         		}
         	}
         	
-        	Email e = new Email(id, isSpam, words);
         	nEmails++;
         	if (isSpam) {
         		nSpam++;
         	}
         	
-        	System.out.println("Read email record with id: " + e.Id);
+        	System.out.println("Read email record with id: " + id);
         }
         br.close();
         System.out.println("Done reading email data file");
