@@ -85,7 +85,8 @@ public class Main {
         String line;
 
         long total = 0;
-        long hit = 0;
+        long tp = 0, tn = 0, fp = 0, fn = 0;
+        		
         while ((line = br.readLine()) != null) {
         	String[] tokens = line.split(" ");
         	String id = tokens[0];
@@ -98,13 +99,20 @@ public class Main {
         	
         	boolean isPredictedAsSpam = (prediction.pSpam > prediction.pHam);
         	total++;
-        	if (isSpam == isPredictedAsSpam) hit++;
+        	if (isSpam) {
+        		if (isPredictedAsSpam) tp++; else fn++; 
+        	} else {
+        		if (isPredictedAsSpam) fp++; else tn++;
+        	}
+        	
         	System.out.println("Read email record with id: " + id + " Actual IsSpam: " + isSpam + " Predicted IsSpam: " + isPredictedAsSpam +
         			" pEmailIsSpam: " + prediction.pSpam + " pEmailIsHam: " + prediction.pHam);
         }        
 		
-        System.out.println("Vocabulary size: " + Dictionary.size() + " Total number of emails: " + total + " Correct predictions: " + hit);
-        System.out.println("Accuracy: " + hit*100.0/total);
+        System.out.println("Vocabulary size: " + Dictionary.size() + " Total number of emails: " + total + " Correct predictions: " + (tp + tn));
+        System.out.println("True Positive: " + tp + " True negative: " + tn + " False positive: " + fp + " False negative: " + fn);
+        System.out.println("Accuracy: " + (tp + tn)*100.0/total);
+        System.out.println("Recall: " + tp*100.0/(tp + fn));
     }
 	
 	private static SpamPrediction ComputeEmailPredictionRegular(String[] tokens) {
