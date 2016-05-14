@@ -1,6 +1,6 @@
 
 public class WordInfo {
-	public static int Smoothing = 100000;
+	public static int Smoothing = 40000;
 	public static boolean UseLectureApproach = false;
 
 	public double pSpam = 0.0;
@@ -19,20 +19,4 @@ public class WordInfo {
 			pHam = (double)(nHam + Smoothing * p) / (double)(nTotalWordsHam + Smoothing);
 		}
 	}
-	
-	/*
-	public double PSpam() {
-		if (!spamComputed) {
-			spamComputed = true;
-		}
-		return pSpam;
-	}
-
-	public double PHam() {
-		if (!hamComputed) {
-			hamComputed = true;
-		}
-		return pHam;
-	}
-	*/
 }

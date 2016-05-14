@@ -105,13 +105,6 @@ public class Main {
 		
         System.out.println("Vocabulary size: " + Dictionary.size() + " Total number of emails: " + total + " Correct predictions: " + hit);
         System.out.println("Accuracy: " + hit*100.0/total);
-        
-        int counter = 0;
-        for (Entry<String, WordInfo> e: Dictionary.entrySet()) {
-        	counter++;
-        	System.out.println("Word: " + e.getKey() + " pSpam: " + e.getValue().pSpam + " pHam: " + e.getValue().pHam);
-    	}
-        System.out.println("Counter: " + counter);
     }
 	
 	private static SpamPrediction ComputeEmailPredictionRegular(String[] tokens) {
