@@ -1,7 +1,7 @@
 
 public class WordInfo {
-	public static int Smoothing = 40000;
-	public static boolean UseLectureApproach = false;
+	public static double Smoothing = 15;
+	public static boolean UseLectureApproach = true;
 
 	public double pSpam = 0.0;
 	public double pHam = 0.0;
@@ -9,9 +9,10 @@ public class WordInfo {
 	public long nSpam = 0;
 	public long nHam = 0;
 	
+	// Compute conditional probability for given word
 	public void ComputeProbability(long nTotalWordsSpam, long nTotalWordsHam, long nDictionary) {
 		if (UseLectureApproach) {
-			pSpam = (double)(nSpam + 1) / (double)(nTotalWordsSpam + nDictionary);
+			pSpam = (double)(nSpam + Smoothing * 1) / (double)(nTotalWordsSpam + Smoothing * nDictionary);
 			pHam = (double)(nHam + 1) / (double)(nTotalWordsHam + nDictionary);
 		} else {
 			double p = 1.0/nDictionary;

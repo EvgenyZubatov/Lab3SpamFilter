@@ -12,18 +12,21 @@ public class Main {
     private static final String TEST_FILE_PATH = ROOT_FOLDER_PATH + "\\test";
     private static final String TRAINING_FILE_PATH = ROOT_FOLDER_PATH + "\\train";
 	
+    // This is Vocabulary from lecture and Mitchel's book
     private static HashMap<String, WordInfo> Dictionary;
     
+    // "Probability" of class "Spam" for training set
     private static double pSpam;
-    private static double pHam;
     
-    private static boolean useLog = true;
+    //"Probability" of class "Ham" for training set
+    private static double pHam;
     
 	public static void main(String[] args) throws Exception {
 		ParseFileAndTrainModel(TRAINING_FILE_PATH);
 		RunPrediction(TEST_FILE_PATH);
 	}
 	
+	// In this method I'm parsing input trainig set and train Naive Bayes "model" 
 	private static void ParseFileAndTrainModel(String filePath) throws Exception {
 		Dictionary = new HashMap<String, WordInfo>();
 		
@@ -113,6 +116,8 @@ public class Main {
         System.out.println("Recall: " + tp*100.0/(tp + fn));
     }
 	
+	// Keeping this method for experiments
+	// it's not used in final model since I'm doing all computations in Log-space 
 	private static SpamPrediction ComputeEmailPredictionRegular(String[] tokens) {
     	double pEmailIsSpam = pSpam;
     	double pEmailIsHam = pHam;
@@ -129,6 +134,8 @@ public class Main {
 		return new SpamPrediction(pEmailIsSpam, pEmailIsHam);
 	}
 
+    // I'm using Log-space conversion in order to avoid precision/error accumulation (when we multiply small 'double' numbers)
+    // And rounding 'very small' doubles to zero 
 	private static SpamPrediction ComputeEmailPredictionLog(String[] tokens) {
     	double pEmailIsSpam = Math.log(pSpam);
     	double pEmailIsHam = Math.log(pHam);
